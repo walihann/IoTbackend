@@ -1,9 +1,12 @@
 package com.siemens.itp.iot.repositories;
 
-import com.siemens.itp.iot.domain.Device;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface DeviceRepo extends MongoRepository<Device, String>{
+import com.siemens.itp.iot.domain.Device;
+
+@Repository
+public interface DeviceRepo extends JpaRepository<Device, Long>{
 
   public Device findByUuid(String uuid);
   

@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+logging:
+  path: ./target/log
+  level:
+    org.springframework.web: INFO
+    com.siemens.bibo: DEBUG
+
+spring:
+  datasource:
+    url: jdbc:postgres://pellefant-01.db.elephantsql.com:5432/vwgomttv
+    username: vwgomttv
+    password: bQDBT3bA_lak_JNNZbIwcE-OYn4XbHih
+    driver-class-name: org.postgresql.Driver

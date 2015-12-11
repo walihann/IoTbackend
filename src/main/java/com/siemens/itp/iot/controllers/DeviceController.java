@@ -1,16 +1,21 @@
 package com.siemens.itp.iot.controllers;
 
-import com.siemens.itp.iot.domain.Device;
-import com.siemens.itp.iot.repositories.DeviceRepo;
+import static com.siemens.itp.iot.controllers.RestUriConstants.DEVICE_URL;
+
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import static com.siemens.itp.iot.controllers.RestUriConstants.DEVICE_URL;
+import com.siemens.itp.iot.domain.Device;
+import com.siemens.itp.iot.repositories.DeviceRepo;
 
 @RestController
 public class DeviceController {
@@ -21,10 +26,15 @@ public class DeviceController {
   private DeviceRepo deviceRepo;
 
   @RequestMapping(value = DEVICE_URL, method = RequestMethod.GET)
-  public List<Device> getAll() {
-    List<Device> devices = deviceRepo.findAll();
-    LOG.debug("get all devices returns " + devices.size() + " elements");
-    return devices;
+  public ArrayList<Device> getAll() {
+    Iterable<Device> devices = deviceRepo.findAll();
+    ArrayList<Device> list = new ArrayList<Device>();
+    for (Device device : devices)
+    {
+        list.add(device);
+    }
+    LOG.debug("get all devices returns " + list.size() + " elements");
+    return list;
   }
 
   @RequestMapping(value = DEVICE_URL + "/{id}", method = RequestMethod.GET)
@@ -43,7 +53,7 @@ public class DeviceController {
   @RequestMapping(value = DEVICE_URL, method = RequestMethod.POST)
   public ResponseEntity<?> create(@RequestBody Device device) {
     LOG.debug("creating " + device);
-    device = deviceRepo.insert(device);
+    device = deviceRepo.save(device);
     return new ResponseEntity<>(device, HttpStatus.CREATED);
   }
   

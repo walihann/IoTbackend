@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/plugins-release" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
+    }
+}
+
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "spring-boot"
+apply plugin: "war"
+
+war {
+    version =  "0.1.0"
+}
+
+// To bypass a proxy via, e.g., cntlm
+bootRun {
+   jvmArgs = [
+        "-Dhttp.proxyHost=localhost"
+      , "-Dhttp.proxyPort=3128"
+      , "-Dhttps.proxyHost=localhost"
+      , "-Dhttps.proxyPort=3128"
+      ]
+}
+
+repositories {
+    mavenCentral()
+}
+
+// Required to have a war which is deployable in a container
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    
+    //compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    
+    compile 'it.cnr.isti.domoware:org.postgresql.jdbc4:8.3-603'
+    
+    // Required to have a war which is deployable in a container
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.3"
+}

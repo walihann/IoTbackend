@@ -1,0 +1,15 @@
+server:
+  port: 8081
+
+logging:
+  path: ./target/log
+  level:
+    org.springframework.web: INFO
+    com.siemens.bibo: DEBUG
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/authmanager
+    username: postgres
+    password: deb.deb
+    driver-class-name: org.postgresql.Driver

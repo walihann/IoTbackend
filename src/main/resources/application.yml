@@ -1,19 +1,3 @@
-info:
-  component: IoTBackend
-
 spring:
-  application:
-    name: IoTBackend
-
-server:
-  port: 8081
-
-logging:
-  path: ./target/log
-  level:
-    org.springframework.web: INFO
-    com.siemens.bibo: DEBUG
-
-mongo:
-  db:
-    name: iot
+  profiles:
+    active: cloud
