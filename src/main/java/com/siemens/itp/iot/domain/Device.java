@@ -1,5 +1,6 @@
 package com.siemens.itp.iot.domain;
 
+import java.io.File;
 import java.util.Objects;
 
 import javax.persistence.Entity;
